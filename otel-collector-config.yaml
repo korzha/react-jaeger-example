@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  opentelemetry-collector:
+    container_name: opentelemetry-collector
+    hostname: opentelemetry-collector
+    image: otel/opentelemetry-collector:0.33.0
+    command: [ "--config=/etc/otel-collector-config.yml" ]
+    volumes:
+      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
+    ports:
+      - "14250:14250"
+      - "55680:55680"
+      - "55690:55690"
+    networks:
+      - tracing
+
+networks:
+  tracing:
+    driver: bridge
